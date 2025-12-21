@@ -1,32 +1,6 @@
-import express from 'express'
-import mongoose from 'mongoose'
-import Product from "./models/products.js"
+import Product from "../models/products.js"
 
-const app = express()
-
-// Middleware
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-
-// routes
-app.use("/api/products", productRoute)
-
-
-
-mongoose.connect("mongodb+srv://minatokiroisen77_db_user:XdObVDt2AoJ6VVUg@crud-api-backend.surgcqc.mongodb.net/Node-api?appName=crud-api-backend")
-    .then(() => {
-        console.log("Conneted to database!..!")
-    })
-    .catch(() => {
-        console.log("Conneted failed!")
-    })
-
-
-app.listen(5000, () => console.log("Listening on port 5000"))
-
-
-// Get All Products
-app.get("/api/products", async (req, res) => {
+export const getProducts = async (req, res) => {
 
     try {
         const products = await Product.find({ })
@@ -37,10 +11,10 @@ app.get("/api/products", async (req, res) => {
         res.status(500).json({ message: error.message })
     }
 
-})
+}
 
-// Add Product
-app.post("/api/products", async (req, res) => {
+
+export const createProduct = async (req, res) => {
     try {
         const product =  await Product.create(req.body)
         res.status(200).json(product)
@@ -49,10 +23,10 @@ app.post("/api/products", async (req, res) => {
         res.status(500).json({ message: error.message })
     }
 
-})
+}
 
-// Get One Product
-app.get("/api/products/:id", async (req, res) => {
+
+export const getOneProduct = async (req, res) => {
     try {
         const { id } = req.params
 
@@ -63,10 +37,10 @@ app.get("/api/products/:id", async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
-})
+}
 
-// Update Product
-app.put("/api/products/:id", async (req, res) => {
+
+export const updateProduct = async (req, res) => {
     try {
         const { id } = req.params
 
@@ -82,10 +56,10 @@ app.put("/api/products/:id", async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
-})
+}
 
-// Remove Product
-app.delete("/api/products/:id", async (req, res) => {
+
+export const deleteProduct = async (req, res) => {
     try {
         const { id } = req.params
 
@@ -100,4 +74,4 @@ app.delete("/api/products/:id", async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
-})
+}
