@@ -25,7 +25,7 @@ export const createProduct = async (req, res) => {
 
 }
 
-
+// Get one product - by ID on param
 export const getOneProduct = async (req, res) => {
     try {
         const { id } = req.params
